@@ -40,3 +40,5 @@ class Solver:
 
         for t in range(1, self.T.size):
             self.T[t] += self.T[t - 1]
+
+        self.geometry.solved = True

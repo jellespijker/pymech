@@ -3,26 +3,26 @@ import pickle
 from pymech.units.SI import ureg, Q_
 
 class Steel(Material):
-    E = 210.e9 * ureg.pascal
-    G = 81.e9 * ureg.pascal
+    E = 210.e3 * ureg.MPa
+    G = 81.e3 * ureg.MPa
     A = 0.2
-    R_mN = 130.e6 * ureg.pascal
-    R_eN = 130.e6 * ureg.pascal
-    sigma_tdWN = 140.e6 * ureg.pascal
-    sigma_bWN = 180.e6 * ureg.pascal
-    tau_tWN = 105.e6 * ureg.pascal
+    R_mN = 130. * ureg.MPa
+    R_eN = 130.* ureg.MPa
+    sigma_tdWN = 140.* ureg.MPa
+    sigma_bWN = 180.* ureg.MPa
+    tau_tWN = 105.* ureg.MPa
     rel_cost = 1.0
 
     def __init__(self, name: str = 'Steel', id: str = '1.0000', category: Category = Category.STEEL):
         Material.__init__(self)
-        self.E = 210.e9 * ureg.pascal
-        self.G = 81.e9 * ureg.pascal
+        self.E = 210.e3 * ureg.MPa
+        self.G = 81.e3 * ureg.MPa
         self.A = 0.2
-        self.R_mN = 130.e6 * ureg.pascal
-        self.R_eN = 130.e6 * ureg.pascal
-        self.sigma_tdWN = 140.e6 * ureg.pascal
-        self.sigma_bWN = 180.e6 * ureg.pascal
-        self.tau_tWN = 105.e6 * ureg.pascal
+        self.R_mN = 130.* ureg.MPa
+        self.R_eN = 130.* ureg.MPa
+        self.sigma_tdWN = 140.* ureg.MPa
+        self.sigma_bWN = 180.* ureg.MPa
+        self.tau_tWN = 105.* ureg.MPa
         self.rel_cost = 1.0
 
     def __repr__(self):

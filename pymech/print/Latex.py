@@ -8,7 +8,6 @@ def toStr(obj):
     elif type(obj).__name__ == 'Quantity':
         retStr = toStr(obj.magnitude) + r" [" + str(obj.units) + r"]"
         tStr = ""
-        a = []
         for i in range(1, len(retStr)):
             try:
                 if retStr[i] == '*' and retStr[i - 1] == '*':
@@ -25,8 +24,26 @@ def toStr(obj):
                 return tStr
         return retStr
     else:
-        retVal = '%.2E' % Decimal(obj)
-        return retVal
+        retStr = '%.2E' % Decimal(obj)
+        for i in range(1, len(retStr)):
+            if retStr[i:i + 4] == 'E+00':
+                retStr = retStr[:i]
+                break
+            elif retStr[i] == 'E' and retStr[i + 2] == '0':
+                if retStr[i + 1] == '+':
+                    retStr = retStr[:i] + r" \cdot 10^{" + retStr[i + 3] + r"}"
+                    break
+                else:
+                    retStr = retStr[:i] + r" \cdot 10^{-" + retStr[i + 3] + r"}"
+                    break
+            elif retStr[i] == 'E':
+                if retStr[i + 1] == '+':
+                    retStr = retStr[:i] + r" \cdot 10^{" + retStr[i + 1:] + r"}"
+                    break
+                else:
+                    retStr = retStr[:i] + r" \cdot 10^{-" + retStr[i + 1:] + r"}"
+                    break
+        return retStr
     return
 
 
@@ -57,6 +74,9 @@ def sqrt(obj, pow = 2):
         return r"\sqrt{" + toStr(obj) + r"}"
 
 
-def Latex(obj):
-    return r"$" + toStr(obj) + r"$"
+def formulaprint(obj):
+    return  r"$" + toStr(obj) + r"$"
+
+def display(obj):
+    return Latex(formulaprint(obj))
 

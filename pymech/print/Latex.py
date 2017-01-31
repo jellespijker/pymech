@@ -6,7 +6,7 @@ def toStr(obj):
     if type(obj).__name__ == 'str':
         return obj
     elif type(obj).__name__ == 'Quantity':
-        retStr = toStr(obj.magnitude) + r" [" + str(obj.units) + r"]"
+        retStr = toStr(obj.magnitude) + unitStr(obj.units)
         tStr = ""
         for i in range(1, len(retStr)):
             try:
@@ -45,6 +45,69 @@ def toStr(obj):
                     break
         return retStr
     return
+
+def unitStr(obj):
+    unit = str(obj)
+    unit = unit.replace("yocto","y")
+    unit = unit.replace("zepto","z")
+    unit = unit.replace("atto","a")
+    unit = unit.replace("femto","f")
+    unit = unit.replace("pico","p")
+    unit = unit.replace("nano","n")
+    unit = unit.replace("micro",r"\mu")
+    unit = unit.replace("milli","m")
+    unit = unit.replace("centi","c")
+    unit = unit.replace("deci","d")
+    unit = unit.replace("deca","da")
+    unit = unit.replace("hecto","h")
+    unit = unit.replace("kilo","k")
+    unit = unit.replace("mega","M")
+    unit = unit.replace("giga","G")
+    unit = unit.replace("tera","T")
+    unit = unit.replace("peta","P")
+    unit = unit.replace("exa","E")
+    unit = unit.replace("zetta","Z")
+    unit = unit.replace("yotta","Y")
+
+    unit = unit.replace("joule", "J")
+    unit = unit.replace("newton", "N")
+    unit = unit.replace("meter", "m")
+    unit = unit.replace("second", "s")
+    unit = unit.replace("ampere", "A")
+    unit = unit.replace("candela", "cd")
+    unit = unit.replace("gram", "g")
+    unit = unit.replace("mole", "mol")
+    unit = unit.replace("kelvin", "K")
+    unit = unit.replace("celsius", r"^{\deg} C")
+    unit = unit.replace("radian", "rad")
+    unit = unit.replace("degree", r"^{\deg}")
+    unit = unit.replace("volt", "V")
+    unit = unit.replace("farad", "F")
+    unit = unit.replace("ohm", r"\Omega")
+    unit = unit.replace("siemens", "mho")
+    unit = unit.replace("Tesla", "T")
+    unit = unit.replace("elementary_charge", "e")
+    unit = unit.replace("watt", "W")
+    unit = unit.replace("hour", "h")
+    unit = unit.replace("hertz", "Hz")
+    unit = unit.replace("revolutions_per_minute", "rpm")
+    unit = unit.replace("lumen", "lm")
+    unit = unit.replace("lux", "lx")
+    unit = unit.replace("horsepower", "hp")
+    unit = unit.replace("pascal", "Pa")
+    unit = unit.replace("minute", "min")
+    unit = unit.replace("nautical_mile", "nmi")
+    unit = unit.replace("knot", "kt")
+    unit = unit.replace("poise", "P")
+    unit = unit.replace("stokes", "St")
+    unit = unit.replace("liter", "L")
+
+    unit = unit.replace("_", "")
+
+    for i in range(1, len(unit)):
+        if unit[i] == r"/":
+            unit = frac(unit[:i-1], unit[i+2:])
+    return r" \left[" + unit + r"\right]"
 
 
 def array(obj):

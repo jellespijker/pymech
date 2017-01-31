@@ -30,13 +30,11 @@ class test_print_methods(unittest.TestCase):
         test_unit_n = 0.666 * ureg.N
         test_unit_a = 3.333 * ureg.mm ** 2
         test_unit = test_unit_n / test_unit_a
-
-        self.assertEqual(Latex.toStr(test_unit), '2.00 \\cdot 10^{-1} [newton / millimeter^{2}]')
+        self.assertEqual(Latex.toStr(test_unit), '2.00 \\cdot 10^{-1} \\left[\\frac{N}{mm^{2}}\\right]')
 
     def test_combined(self):
         test_unit_n = 0.666 * ureg.N ** 2
         test_unit_a = 3.333 * ureg.mm ** 200
         test_unit_p = test_unit_n / test_unit_a
         test_result = math.sqrt(test_unit_p.magnitude) * ureg.Pa * ureg.m ** -98
-        print(Latex.formulaprint(Latex.sqrt(Latex.frac(test_unit_n, test_unit_a)) + r" = " + Latex.toStr(test_result)))
-        self.assertEqual(Latex.formulaprint(Latex.sqrt(Latex.frac(test_unit_n, test_unit_a)) + r" = " + Latex.toStr(test_result)), '$\\sqrt{\\frac{6.66 \\cdot 10^{-1} [newton^{2}]}{3.33 [millimeter^{200}]}} = 4.47 \\cdot 10^{-1} [pascal / meter^{98}]$')
+        self.assertEqual(r'$\sqrt{\frac{6.66 \cdot 10^{-1} \left[N^{2}\right]}{3.33 \left[mm^{200}\right]}} = 4.47 \cdot 10^{-1} \left[\frac{Pa}{m^{98}}\right]$' ,Latex.formulaprint(Latex.sqrt(Latex.frac(test_unit_n, test_unit_a)) + r" = " + Latex.toStr(test_result)))

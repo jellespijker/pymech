@@ -25,6 +25,6 @@ class test_axle_methods(unittest.TestCase):
         axle = Axle(properties=prop)
         axle.solvegeometry()
 
-        d_prime = axle.d_prime(pretty=True)[0].magnitude
-        d_prime_exp = 0.3140950405098899
-        self.assertAlmostEqual(first=d_prime, second=d_prime_exp, places=5)
+        d_prime = axle.d_prime(pretty=False)
+        d_prime_exp = 0.3242340646818215
+        self.assertAlmostEqual(first=d_prime[0].magnitude, second=d_prime_exp, places=5)

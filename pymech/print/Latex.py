@@ -1,6 +1,7 @@
-from IPython.display import Latex
-from pymech.units.SI import ureg
 from decimal import Decimal
+
+from IPython.display import Latex
+
 
 def toStr(obj):
     if type(obj).__name__ == 'str':
@@ -17,8 +18,8 @@ def toStr(obj):
                             power += retStr[n]
                         else:
                             break
-                    a = [i - 2, n - i , power]
-                    tStr = retStr[:a[0]] + r"^{" + a[2] + r"}" + retStr[a[0]+ a[1] + 2:]
+                    a = [i - 2, n - i, power]
+                    tStr = retStr[:a[0]] + r"^{" + a[2] + r"}" + retStr[a[0] + a[1] + 2:]
                     retStr = tStr
             except IndexError:
                 return tStr
@@ -46,28 +47,29 @@ def toStr(obj):
         return retStr
     return
 
+
 def unitStr(obj):
     unit = str(obj)
-    unit = unit.replace("yocto","y")
-    unit = unit.replace("zepto","z")
-    unit = unit.replace("atto","a")
-    unit = unit.replace("femto","f")
-    unit = unit.replace("pico","p")
-    unit = unit.replace("nano","n")
-    unit = unit.replace("micro",r"\mu")
-    unit = unit.replace("milli","m")
-    unit = unit.replace("centi","c")
-    unit = unit.replace("deci","d")
-    unit = unit.replace("deca","da")
-    unit = unit.replace("hecto","h")
-    unit = unit.replace("kilo","k")
-    unit = unit.replace("mega","M")
-    unit = unit.replace("giga","G")
-    unit = unit.replace("tera","T")
-    unit = unit.replace("peta","P")
-    unit = unit.replace("exa","E")
-    unit = unit.replace("zetta","Z")
-    unit = unit.replace("yotta","Y")
+    unit = unit.replace("yocto", "y")
+    unit = unit.replace("zepto", "z")
+    unit = unit.replace("atto", "a")
+    unit = unit.replace("femto", "f")
+    unit = unit.replace("pico", "p")
+    unit = unit.replace("nano", "n")
+    unit = unit.replace("micro", r"\mu")
+    unit = unit.replace("milli", "m")
+    unit = unit.replace("centi", "c")
+    unit = unit.replace("deci", "d")
+    unit = unit.replace("deca", "da")
+    unit = unit.replace("hecto", "h")
+    unit = unit.replace("kilo", "k")
+    unit = unit.replace("mega", "M")
+    unit = unit.replace("giga", "G")
+    unit = unit.replace("tera", "T")
+    unit = unit.replace("peta", "P")
+    unit = unit.replace("exa", "E")
+    unit = unit.replace("zetta", "Z")
+    unit = unit.replace("yotta", "Y")
 
     unit = unit.replace("joule", "J")
     unit = unit.replace("newton", "N")
@@ -106,7 +108,7 @@ def unitStr(obj):
 
     for i in range(1, len(unit)):
         if unit[i] == r"/":
-            unit = frac(unit[:i-1], unit[i+2:])
+            unit = frac(unit[:i - 1], unit[i + 2:])
     return r" \left[" + unit + r"\right]"
 
 
@@ -127,10 +129,12 @@ def array(obj):
     retStr += r"\end{array}"
     return retStr
 
+
 def frac(top, bottom):
     return r"\frac{" + toStr(top) + r"}{" + toStr(bottom) + r"}"
 
-def sqrt(obj, pow = 2):
+
+def sqrt(obj, pow=2):
     if not pow == 2:
         return r"\sqrt[" + str(pow) + r"]{" + toStr(obj) + r"}"
     else:
@@ -138,8 +142,11 @@ def sqrt(obj, pow = 2):
 
 
 def formulaprint(obj):
-    return  r"$" + toStr(obj) + r"$"
+    return r"$" + toStr(obj) + r"$"
+
 
 def display(obj):
     return Latex(formulaprint(obj))
 
+def pow(obj, power=2):
+    return r"\left(" + toStr(obj) + r"\right)^{" + str(power) + r"}"

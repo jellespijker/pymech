@@ -1,12 +1,11 @@
 import math as math
 import numpy as np
-from IPython.display import Latex
 import matplotlib.pyplot as pl
 
 from pymech.fmt.Solver import Solver
 from pymech.units.SI import ureg
+import pymech.print.Latex as Latex
 from .Properties import Properties
-
 
 class Axle:
     properties: Properties
@@ -58,15 +57,15 @@ class Axle:
     def d_prime(self, pretty=False):
         if not self.properties.geometry.solved:
             self.solvegeometry()
-        M_b = np.max(self.M) * self.properties.appliancefactor.K_a * ureg.pascal
+        M_max = np.max(self.M) * self.properties.appliancefactor.K_a * ureg.N * ureg.m**-2
+        M_b = M_max * self.properties.appliancefactor.K_a
         t = M_b / self.properties.material.sigma_bWN
         d_prime = 3.4 * math.pow(t, 1 / 3) * ureg.meter
 
         if pretty:
-            return [d_prime,
-                    Latex(r"""$\begin{array}{c}
-                     M_{b} = K_A \max(M_{nom}) \rightarrow """ + str(M_b.magnitude) + """ [Nm] = """ + str(np.max(self.M)) + """[Nm] \\times """ + str(self.properties.appliancefactor.K_a) + """ [-] \\\\
-                     d^{\'} \\approx 3.4 \\sqrt[3]{\\frac{M_{b}}{\sigma_{bWN}}} \\rightarrow """ + str(d_prime.magnitude) + """ [m] \\approx 3.4 [m] \sqrt[3]{\\frac{""" + str(M_b.magnitude) + " [Nm]}{" + str(self.properties.material.sigma_bWN.magnitude) + """[Nm]}}
-                    \end{array}$""")]
+            formArray = [[r"M_{b} = K_A \max(M_{nom}) \times \rightarrow " + Latex.toStr(self.properties.appliancefactor.K_a) + r" \times " + Latex.toStr(M_max) + r" = " + Latex.toStr(M_b)],
+                         [r"d^{'} = \approx 3.4 " + Latex.sqrt(Latex.frac(r"M_{b}", r"\sigma_{bWN}"), 3) + r" \rightarrow \approx 3.4 [m] " + Latex.sqrt(Latex.frac(M_b, self.properties.material.sigma_bWN), 3) + r" = " + Latex.toStr(d_prime)]]
+            pretty = Latex.display(Latex.array(formArray))
+            return [d_prime, pretty]
         else:
             return [d_prime]

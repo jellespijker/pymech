@@ -64,7 +64,7 @@ class Axle:
 
         if pretty:
             formArray = [[r"M_{b} = K_A \max(M_{nom}) \times \rightarrow " + Latex.toStr(self.properties.appliancefactor.K_a) + r" \times " + Latex.toStr(M_max) + r" = " + Latex.toStr(M_b)],
-                         [r"d^{'} = \approx 3.4 " + Latex.sqrt(Latex.frac(r"M_{b}", r"\sigma_{bWN}"), 3) + r" \rightarrow \approx 3.4 [m] " + Latex.sqrt(Latex.frac(M_b, self.properties.material.sigma_bWN), 3) + r" = " + Latex.toStr(d_prime)]]
+                         [r"d^{'} = \approx 3.4 " + Latex.sqrt(Latex.frac(r"M_{b}", r"\sigma_{bWN}"), 3) + r" \rightarrow 3.4 [m] " + Latex.sqrt(Latex.frac(M_b, self.properties.material.sigma_bWN), 3) + r" \approx " + Latex.toStr(d_prime)]]
             pretty = Latex.display(Latex.array(formArray))
             return [d_prime, pretty]
         else:

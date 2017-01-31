@@ -6,6 +6,7 @@ class Geometry:
     axle = np.linspace(0, 1, 1)
     points = []
     size = 1
+    solved = False
 
     def __init__(self, length: int = 1000):
         self.axle = np.linspace(start=0, stop=length, num=length)

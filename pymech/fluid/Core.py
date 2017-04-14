@@ -41,3 +41,11 @@ def Reynolds(v, D, rho=None, mu=None, nu=None, fluid=None, pretty=False):
         print('Error! Either fill in mu, nu or a fluid')
         return None
     return Re
+
+def flowrate(v, A, pretty=False):
+    Q = v * A
+    Q = Q.to_base_units()
+    if pretty:
+        pr = Latex.display(Latex.toStr(r"Q_{f} = v_{f} \times A \rightarrow " + Latex.toStr(v) + r" \times " + Latex.toStr(A) + r" = " + Latex.toStr(Q)))
+        return [Q, pr]
+    return Q

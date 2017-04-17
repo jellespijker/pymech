@@ -1,5 +1,6 @@
 from pymech.units.SI import ureg, Q_
 import pickle
+import sys
 from .Material import Material, Category
 
 
@@ -125,7 +126,10 @@ class Fluid(Material):
         try:
             self.gamma = self._gamma[self.temperature.to('degC').magnitude]
         except KeyError:
-            prev_key = 0
+            if len(self._gamma) == 1 or list(self._gamma.keys())[0] > self.temperature.to('degC').magnitude:
+                self.gamma = list(self._gamma.values())[0]
+                return self.gamma
+            prev_key = sys.float_info.min
             for key in self._gamma.items():
                 if key[0] > self.temperature.to('degC').magnitude:
                     dT = (self.temperature.to('degC').magnitude - prev_key)
@@ -141,7 +145,10 @@ class Fluid(Material):
         try:
             self.mu = self._mu[self.temperature.to('degC').magnitude]
         except KeyError:
-            prev_key = 0
+            if len(self._mu) == 1 or list(self._mu.keys())[0] > self.temperature.to('degC').magnitude:
+                self.mu = list(self._mu.values())[0]
+                return self.mu
+            prev_key = sys.float_info.min
             for key in self._mu.items():
                 if key[0] > self.temperature.to('degC').magnitude:
                     dT = (self.temperature.to('degC').magnitude - prev_key)
@@ -157,7 +164,10 @@ class Fluid(Material):
         try:
             self.nu = self._nu[self.temperature.to('degC').magnitude]
         except KeyError:
-            prev_key = 0
+            if len(self._nu) == 1 or list(self._nu.keys())[0] > self.temperature.to('degC').magnitude:
+                self.nu = list(self._nu.values())[0]
+                return self.nu
+            prev_key = sys.float_info.min
             for key in self._nu.items():
                 if key[0] > self.temperature.to('degC').magnitude:
                     dT = (self.temperature.to('degC').magnitude - prev_key)

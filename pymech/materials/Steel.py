@@ -25,7 +25,7 @@ class Steel(Material):
         self.sigma_bWN = 180.* ureg.MPa
         self.tau_tWN = 105.* ureg.MPa
         self.rel_cost = 1.0
-        self.epsilon = 4.6e5 * ureg['m']
+        self.epsilon = 4.6e-5 * ureg['m']
 
     def __repr__(self):
         mat = Material.__repr__(self) + repr([self.E, self.G, self.A, self.R_mN, self.R_eN, self.sigma_tdWN, self.sigma_bWN, self.tau_tWN, self.rel_cost])

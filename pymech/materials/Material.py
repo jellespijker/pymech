@@ -1,5 +1,7 @@
 from enum import Enum
 import pickle
+import sys
+
 from pymech.units.SI import ureg, Q_
 
 
@@ -32,7 +34,10 @@ class Material:
         try:
             self.density = self._density[self.temperature.to('degC').magnitude]
         except KeyError:
-            prevKey = 0
+            if len(self._density) == 1 or list(self._density.keys())[0] > self.temperature.to('degC').magnitude:
+                self.density = list(self._density.values())[0]
+                return self.density
+            prevKey = sys.float_info.min
             for key in self._density.items():
                 if key[0] > self.temperature.to('degC').magnitude:
                     dT = (self.temperature.to('degC').magnitude - prevKey)

@@ -21,17 +21,15 @@ setup(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Mechanical engineers',
         'Topic :: Engineering :: designer',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
+        'License :: OSI Approved :: MIT License'
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6'
     ],
     keywords='mechanical engineering',
     packages=find_packages(),
-    install_requires=['numpy', 'pint'],
+    install_requires=['numpy', 'pint', 'networkx'],
 
 )

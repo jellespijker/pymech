@@ -16,6 +16,6 @@ class test_fmt_methods(unittest.TestCase):
         S.solve()
 
         data = np.load("../resources/tests/test_solver.npz")
-        np.testing.assert_array_equal(data['V'], S.V)
-        np.testing.assert_array_equal(data['M'], S.M)
-        np.testing.assert_array_equal(data['T'], S.T)
+        np.testing.assert_almost_equal(data['V'], S.V, 3)
+        np.testing.assert_almost_equal(data['M'], S.M, 3)
+        np.testing.assert_almost_equal(data['T'], S.T, 3)

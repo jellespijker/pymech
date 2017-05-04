@@ -12,8 +12,9 @@ class Steel(Material):
     sigma_bWN = 180.* ureg.MPa
     tau_tWN = 105.* ureg.MPa
     rel_cost = 1.0
+    epsilon = 4.6e-5 * ureg['m']
 
-    def __init__(self, name: str = 'Steel', id: str = '1.0000', category: Category = Category.STEEL):
+    def __init__(self, name: str = 'Steel', id: str = '1.0000',T=293.15 * ureg['K'] ,category: Category = Category.STEEL):
         Material.__init__(self)
         self.E = 210.e3 * ureg.MPa
         self.G = 81.e3 * ureg.MPa
@@ -24,6 +25,7 @@ class Steel(Material):
         self.sigma_bWN = 180.* ureg.MPa
         self.tau_tWN = 105.* ureg.MPa
         self.rel_cost = 1.0
+        self.epsilon = 4.6e-5 * ureg['m']
 
     def __repr__(self):
         mat = Material.__repr__(self) + repr([self.E, self.G, self.A, self.R_mN, self.R_eN, self.sigma_tdWN, self.sigma_bWN, self.tau_tWN, self.rel_cost])
@@ -31,10 +33,12 @@ class Steel(Material):
 
     def load(self, filename):
         data = pickle.load(open(filename, "rb"))
-        self.name = data.name  * ureg.pascal
+        self.name = data.name
         self.id = data.id
         self.category = data.category
-        self.density = data.density
+        self.temperature = data.temperature
+        self._density = data._density
+        self.getdensity()
         self.E = data.E
         self.G = data.G
         self.A = data.A

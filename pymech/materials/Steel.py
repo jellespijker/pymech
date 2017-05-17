@@ -38,7 +38,6 @@ class Steel(Material):
         self.category = data.category
         self.temperature = data.temperature
         self._density = data._density
-        self.getdensity()
         self.E = data.E
         self.G = data.G
         self.A = data.A

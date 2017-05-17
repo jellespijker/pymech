@@ -1,9 +1,10 @@
 from pymech.materials.Steel import Steel
 from pymech.materials.Fluid import Fluid
 from pymech.materials.Material import Category
-from pymech.units.SI import ureg, Q_
+from pymech.units.SI import ureg, Q_, g
 
-def buildSteel(name, id, rho, T ,E, G, A, R_mN, R_eN, sigma_tdWN, sigma_bWN, tau_tWN, rel_cost, eps):
+
+def buildSteel(name, id, rho, T, E, G, A, R_mN, R_eN, sigma_tdWN, sigma_bWN, tau_tWN, rel_cost, eps):
     S = Steel(name, id, category=Category.STEEL)
     S.temperature = T * ureg['K']
     S.density = rho * ureg['kg/m**3']
@@ -17,7 +18,8 @@ def buildSteel(name, id, rho, T ,E, G, A, R_mN, R_eN, sigma_tdWN, sigma_bWN, tau
     S.tau_tWN = tau_tWN * ureg['MPa']
     S.rel_cost = rel_cost
     S.epsilon = eps * ureg['m']
-    S.save("../resources/materials/" + name + ".mat")
+    S.save("../pymech/resources/materials/" + name + ".mat")
+
 
 def buildFluid(name, id, rho_, T, gamma_, mu_, nu_):
     F = Fluid(name, id, category=Category.FLUID, T=T * ureg['K'])
@@ -25,11 +27,10 @@ def buildFluid(name, id, rho_, T, gamma_, mu_, nu_):
     F._gamma = gamma_
     F._mu = mu_
     F._nu = nu_
-    F.getdensity()
     F.getgamma()
     F.getmu()
     F.getnu()
-    F.save("../resources/materials/" + name + ".mat")
+    F.save("../pymech/resources/materials/" + name + ".mat")
 
 
 def main():
@@ -141,10 +142,17 @@ def main():
     mu_ = {25.: 6.03e-4 * ureg['Pa*s'],
            50.: 4.2e-4 * ureg['Pa*s']}
     nu_ = {25.: 6.88e-7 * ureg['m**2/s'],
-           50.: 6.88e-7 * ureg['m**2/s']} # TODO get correct value
+           50.: 6.88e-7 * ureg['m**2/s']}  # TODO get correct value
     density_ = {25.: 876. * ureg['kg/m**3'],
                 50.: 860. * ureg['kg/m**3']}
     buildFluid("Benzene", "0.0002", density_, 293.15, gamma_, mu_, nu_)
+
+    density_ = {15.: 1700 * ureg['kg/m**3']}
+    mu_ = {15.: 1.42 * ureg['Pa * s']}
+    nu_ = {15.: (mu_[15.] / density_[15.])}
+    gamma_ = {15.: (density_[15.] * g)}
+    buildFluid("12417-GP-5to1-Z1", "GP.0000", density_, 293.15, gamma_, mu_, nu_)
+
 
 if __name__ == '__main__':
     main()

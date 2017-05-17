@@ -160,5 +160,5 @@ class test_system_methods(unittest.TestCase):
         # nnn.mainloop()
 
         print(pipes)
-        S.solve()
+        # S.solve()
         print(pipes)

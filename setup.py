@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='pyMech',
-    version='0.0.2a',
+    version='0.0.2b',
     description='Roloff / Matek brought to Python',
     long_description=long_description,
     url='https://github.com/peer23peer/pyMech',

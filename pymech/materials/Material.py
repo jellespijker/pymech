@@ -1,6 +1,7 @@
 from enum import Enum
 import pickle
 import sys
+from pymech.print import Latex
 
 from pymech.units.SI import ureg, Q_
 
@@ -28,7 +29,11 @@ class Material:
         self.temperature = T
 
     def __repr__(self):
-        return repr([self.name, self.id, self.category, self.getdensity(), self.temperature.to('degC')])
+        return repr([self.name, self.id, self.category, self.density, self.temperature.to('degC')])
+
+    def __str__(self):
+        return 'Name: ' + str(self.name) + ' at ' + Latex.toStr(
+            self.temperature.to('degC')) + '\nDensity: ' + Latex.toStr(self.density)
 
     @property
     def density(self):

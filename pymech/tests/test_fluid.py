@@ -22,36 +22,36 @@ class test_fluid_methods(unittest.TestCase):
     def test_fluid_gamma(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.getgamma(), 9.79 * ureg['kN/m**3'])
+        self.assertEqual(f.gamma, 9.79 * ureg['kN/m**3'])
         f.settemperaturecelsius(27.5)
-        self.assertEqual(round(f.getgamma(), 3), 9.775 * ureg['kN/m**3'])
+        self.assertEqual(round(f.gamma, 3), 9.775 * ureg['kN/m**3'])
         f.settemperaturecelsius(120.)
-        self.assertEqual(f.getgamma(), 9.40 * ureg['kN/m**3'])
+        self.assertEqual(f.gamma, 9.40 * ureg['kN/m**3'])
 
     def test_fluid_mu(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.getmu(), 1.02e-3 * ureg['Pa*s'])
+        self.assertEqual(f.mu, 1.02e-3 * ureg['Pa*s'])
         f.settemperaturecelsius(27.5)
-        self.assertEqual(round(f.getmu(), 7), 8.455e-4 * ureg['Pa*s'])
+        self.assertEqual(round(f.mu, 7), 8.455e-4 * ureg['Pa*s'])
         f.settemperaturecelsius(120.)
-        self.assertEqual(f.getmu(), 2.82e-4 * ureg['Pa*s'])
+        self.assertEqual(f.mu, 2.82e-4 * ureg['Pa*s'])
 
     def test_fluid_nu(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.getnu(), 1.02e-6 * ureg['m**2/s'])
+        self.assertEqual(f.nu, 1.02e-6 * ureg['m**2/s'])
         f.settemperaturecelsius(27.5)
-        self.assertEqual(round(f.getnu(), 10), 8.485e-7 * ureg['m**2/s'])
+        self.assertEqual(round(f.nu, 10), 8.485e-7 * ureg['m**2/s'])
         f.settemperaturecelsius(120.)
-        self.assertEqual(f.getnu(), 2.94e-7 * ureg['m**2/s'])
+        self.assertEqual(f.nu, 2.94e-7 * ureg['m**2/s'])
 
     def test_load_water(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.getdensity(), 998 * ureg['kg/m**3'])
-        self.assertEqual(f.getmu(), 1.02e-3 * ureg['Pa*s'])
-        self.assertEqual(f.getnu(), 1.02e-6 * ureg['m**2/s'])
+        self.assertEqual(f.density, 998 * ureg['kg/m**3'])
+        self.assertEqual(f.mu, 1.02e-3 * ureg['Pa*s'])
+        self.assertEqual(f.nu, 1.02e-6 * ureg['m**2/s'])
 
 
 class test_pipe_methods(unittest.TestCase):
@@ -61,7 +61,7 @@ class test_pipe_methods(unittest.TestCase):
         points = [Point() for i in range(2)]
         points[1].Height = 21. * ureg['m']
         p = Pipe()
-        p.load("../resources/piping/2.inch-Sc40.pip", L=240 * ureg['m'], fluid=f ,From=points[0], To=points[1])
+        p.load("../resources/piping/2.inch-Sc40.pip", L=240 * ureg['m'], fluid=f, From=points[0], To=points[1])
         p.set_q(110. * ureg['l/min'])
         p.fluid.settemperaturecelsius(50)
         hl = np.zeros(2000) * ureg['m']
@@ -70,7 +70,7 @@ class test_pipe_methods(unittest.TestCase):
             hl[i] = p.headloss()
 
         data = np.load('../resources/tests/test_headloss.npz')['arr_0']
-        np.testing.assert_almost_equal(hl[1:2000].magnitude,data[1:2000],3)
+        np.testing.assert_almost_equal(hl[1:2000].magnitude, data[1:2000], 3)
 
 
 class test_core_methods(unittest.TestCase):
@@ -118,19 +118,19 @@ class test_core_methods(unittest.TestCase):
         v = 3.6 * ureg['m/s']
         mu = 1.02e-3 * ureg['Pa*s']
         hp = HagenPoiseuille(mu=mu, L=L, D=D, v=v, dP=True)
-        self.assertEqual(round(hp,3), 323.160 * ureg['Pa'])
+        self.assertEqual(round(hp, 3), 323.160 * ureg['Pa'])
         rho = 998. * ureg['kg/m**3']
         hp = HagenPoiseuille(mu=mu, L=L, D=D, v=v, rho=rho)
-        self.assertEqual(round(hp,3),0.033 * ureg['m'])
+        self.assertEqual(round(hp, 3), 0.033 * ureg['m'])
 
     def test_friction(self):
         Re = 1040.3
         D = 60.3 * ureg['mm']
         eps = 2.4e-4 * ureg['m']
-        f = friction(Re=Re, D=D,eps=eps)
-        self.assertEqual(round(f,4),0.0615 * ureg['dimensionless'])
+        f = friction(Re=Re, D=D, eps=eps)
+        self.assertEqual(round(f, 4), 0.0615 * ureg['dimensionless'])
         Re = 8999.2
-        f = friction(Re=Re, D=D,eps=eps)
+        f = friction(Re=Re, D=D, eps=eps)
         self.assertEqual(round(f, 4), 0.0377 * ureg['dimensionless'])
 
 

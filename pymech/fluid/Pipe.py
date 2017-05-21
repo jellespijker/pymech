@@ -112,7 +112,7 @@ class Pipe(Component):
         if dP:
             self.P1 = self.P0 - hl
         else:
-            self.P1 = self.P0 - hl_to_dp(hl, self.fluid, pretty=pretty)
+            self.P1 = self.P0 - hl_to_dp(hl, fluid=self.fluid, pretty=pretty)
         return hl
 
     @property

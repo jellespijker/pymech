@@ -1,0 +1,40 @@
+__class_name__: <class 'pymech.materials.Fluid.Fluid'>
+__dumped_obj__: !!python/tuple
+- !!python/tuple
+  - Benzene
+  - '0.0002'
+  - 25.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 876.0
+      - !!python/tuple
+        - !!python/tuple [kilogram, 1.0]
+        - !!python/tuple [meter, -3.0]
+    50.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 860.0
+      - !!python/tuple
+        - !!python/tuple [kilogram, 1.0]
+        - !!python/tuple [meter, -3.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 288.15
+    - !!python/tuple
+      - !!python/tuple [kelvin, 1.0]
+  - null
+  - !!python/object/apply:pymech.materials.Material.Category [3]
+- 25.0:
+    __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.000603
+    - !!python/tuple
+      - !!python/tuple [pascal, 1.0]
+      - !!python/tuple [second, 1.0]
+  50.0:
+    __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.00042
+    - !!python/tuple
+      - !!python/tuple [pascal, 1.0]
+      - !!python/tuple [second, 1.0]

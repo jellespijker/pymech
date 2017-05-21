@@ -1,0 +1,456 @@
+__class_name__: <class 'pymech.fluid.Pipe.Pipe'>
+__dumped_obj__: !!python/tuple
+- !!python/tuple
+  - 0
+  - &id001
+    - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.0
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+    - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.0
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 2.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 3.0]
+      - !!python/tuple [second, -1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 1.0]
+      - !!python/tuple [second, -1.0]
+- __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+  __dumped_obj__: !!python/tuple
+  - 1.0
+  - !!python/tuple
+    - !!python/tuple [meter, 1.0]
+- __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+  __dumped_obj__: !!python/tuple
+  - 0.0171
+  - !!python/tuple
+    - !!python/tuple [meter, 1.0]
+- __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+  __dumped_obj__: !!python/tuple
+  - 0.00231
+  - !!python/tuple
+    - !!python/tuple [meter, 1.0]
+- __class_name__: <class 'pymech.materials.Steel.Steel'>
+  __dumped_obj__: !!python/tuple
+  - !!python/tuple
+    - Steel
+    - '1.0000'
+    - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 7800.0
+      - !!python/tuple
+        - !!python/tuple [kilogram, 1.0]
+        - !!python/tuple [meter, -3.0]
+    - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 288.15
+      - !!python/tuple
+        - !!python/tuple [kelvin, 1.0]
+    - null
+    - !!python/object/apply:pymech.materials.Material.Category [1]
+  - 0.26
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 210000.0
+    - !!python/tuple
+      - !!python/tuple [megapascal, 1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 81000.0
+    - !!python/tuple
+      - !!python/tuple [megapascal, 1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 235.0
+    - !!python/tuple
+      - !!python/tuple [megapascal, 1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 360.0
+    - !!python/tuple
+      - !!python/tuple [megapascal, 1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 4.6e-05
+    - !!python/tuple
+      - !!python/tuple [meter, 1.0]
+  - 1.0
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 180.0
+    - !!python/tuple
+      - !!python/tuple [megapascal, 1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 140.0
+    - !!python/tuple
+      - !!python/tuple [megapascal, 1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 105.0
+    - !!python/tuple
+      - !!python/tuple [megapascal, 1.0]
+- ASME B36.10
+- __class_name__: <class 'pymech.fluid.Point.Point'>
+  __dumped_obj__: !!python/tuple
+  - 0
+  - *id001
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 2.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 3.0]
+      - !!python/tuple [second, -1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 1.0]
+      - !!python/tuple [second, -1.0]
+- __class_name__: <class 'pymech.fluid.Point.Point'>
+  __dumped_obj__: !!python/tuple
+  - 0
+  - *id001
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 2.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 3.0]
+      - !!python/tuple [second, -1.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 0.0
+    - !!python/tuple
+      - !!python/tuple [meter, 1.0]
+      - !!python/tuple [second, -1.0]
+- __class_name__: <class 'pymech.materials.Fluid.Fluid'>
+  __dumped_obj__: !!python/tuple
+  - !!python/tuple
+    - Water
+    - '0.0001'
+    - 0.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 1000.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      5.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 1000.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      10.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 1000.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      15.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 1000.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      20.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 998.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      25.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 997.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      30.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 996.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      35.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 994.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      40.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 992.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      45.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 990.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      50.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 988.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      55.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 986.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      60.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 984.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      65.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 981.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      70.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 978.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      75.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 975.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      80.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 971.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      85.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 968.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      90.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 965.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      95.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 962.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+      100.0:
+        __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+        __dumped_obj__: !!python/tuple
+        - 958.0
+        - !!python/tuple
+          - !!python/tuple [kilogram, 1.0]
+          - !!python/tuple [meter, -3.0]
+    - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 293.15
+      - !!python/tuple
+        - !!python/tuple [kelvin, 1.0]
+    - null
+    - !!python/object/apply:pymech.materials.Material.Category [3]
+  - 0.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.00175
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    5.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.00152
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    10.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.0013
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    15.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.00115
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    20.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.00102
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    25.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000891
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    30.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.0008
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    35.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000718
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    40.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000651
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    45.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000594
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    50.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000541
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    55.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000498
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    60.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.00046
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    65.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000431
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    70.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000402
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    75.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000373
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    80.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.00035
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    85.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.00033
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    90.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000311
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    95.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000292
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]
+    100.0:
+      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+      __dumped_obj__: !!python/tuple
+      - 0.000282
+      - !!python/tuple
+        - !!python/tuple [pascal, 1.0]
+        - !!python/tuple [second, 1.0]

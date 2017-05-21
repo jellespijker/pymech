@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from IPython.display import Latex
+import re
 
 
 def toStr(obj):
@@ -80,9 +81,10 @@ def unitStr(obj):
     unit = unit.replace("gram", "g")
     unit = unit.replace("mole", "mol")
     unit = unit.replace("kelvin", "K")
-    unit = unit.replace("celsius", r"^{\deg} C")
+    unit = unit.replace("celsius", r"^{\circ} C")
+    unit = unit.replace("degC", r"^{\circ} C")
     unit = unit.replace("radian", "rad")
-    unit = unit.replace("degree", r"^{\deg}")
+    unit = unit.replace("degree", r"^{\circ}")
     unit = unit.replace("volt", "V")
     unit = unit.replace("farad", "F")
     unit = unit.replace("ohm", r"\Omega")
@@ -105,6 +107,11 @@ def unitStr(obj):
     unit = unit.replace("liter", "L")
 
     unit = unit.replace("_", "")
+    unit = unit.replace("dimensionless", "-")
+
+    unit = re.sub(r"(\*\*\ (-?\b\d\d{0,8}\b))", r"^{\2}", unit)
+
+    unit = unit.replace("*", r"\cdot")
 
     for i in range(1, len(unit)):
         if unit[i] == r"/":

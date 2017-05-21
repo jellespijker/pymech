@@ -30,6 +30,6 @@ setup(
     ],
     keywords='mechanical engineering',
     packages=find_packages(),
-    install_requires=['numpy', 'pint', 'networkx'],
+    install_requires=['numpy', 'pint', 'networkx', 'serialize', 'pyyaml'],
 
 )

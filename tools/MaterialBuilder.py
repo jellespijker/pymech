@@ -1,5 +1,8 @@
+import numpy as np
+from pymech.materials.Material import Material
+from pymech.materials.Plastic import Plastic
 from pymech.materials.Steel import Steel
-from pymech.materials.Fluid import Fluid
+from pymech.materials.Fluid import Fluid, BinghamFluid
 from pymech.materials.Material import Category
 from pymech.units.SI import ureg, Q_, g
 
@@ -7,7 +10,7 @@ from pymech.units.SI import ureg, Q_, g
 def buildSteel(name, id, rho, T, E, G, A, R_mN, R_eN, sigma_tdWN, sigma_bWN, tau_tWN, rel_cost, eps):
     S = Steel(name, id, category=Category.STEEL)
     S.temperature = T * ureg['K']
-    S.density = rho * ureg['kg/m**3']
+    S.rho = rho * ureg['kg/m**3']
     S.E = E * ureg['MPa']
     S.G = G * ureg['MPa']
     S.A = A / 100.
@@ -21,16 +24,28 @@ def buildSteel(name, id, rho, T, E, G, A, R_mN, R_eN, sigma_tdWN, sigma_bWN, tau
     S.save("../pymech/resources/materials/" + name + ".mat")
 
 
-def buildFluid(name, id, rho_, T, gamma_, mu_, nu_):
-    F = Fluid(name, id, category=Category.FLUID, T=T * ureg['K'])
-    F._density = rho_
-    F._gamma = gamma_
-    F._mu = mu_
-    F._nu = nu_
-    F.getgamma()
-    F.getmu()
-    F.getnu()
+def buildPlastic(name, id, rho, eps):
+    P = Plastic(name=name, id=id, density=rho * ureg['kg/m**3'], T=15. * ureg['degC'], category=Category.PLASTIC)
+    P.epsilon = eps * ureg['m']
+    P.save("../pymech/resources/materials/" + name + ".mat")
+
+
+def buildFluid(name, id, rho, T, mu):
+    F = Fluid(name, id, category=Category.FLUID, T=T * ureg['degC'])
+    F._rho = rho
+    F._mu = mu
+    F.v = np.array([0., 0., 0.]) * ureg['m/s']
     F.save("../pymech/resources/materials/" + name + ".mat")
+
+
+def buildBingham(name, id, rho, T, mu, tau_y, etha_b):
+    B = BinghamFluid(name=name, id=id, T=T * ureg['degC'])
+    B.rho = rho
+    B.mu = mu
+    B.tau_y = tau_y
+    B.etha_b = etha_b
+    B.v = np.array([0., 0., 0.]) * ureg['m/s']
+    B.save("../pymech/resources/materials/" + name + ".mat")
 
 
 def main():
@@ -46,112 +61,66 @@ def main():
     buildSteel("41Cr4", "1.7035", 7800., 293.15, 210.e3, 81.e3, 11., 1000., 800., 400., 500., 300., 1.7, 4.6e-5)
     buildSteel("50CrMo4", "1.7228", 7800., 293.15, 210.e3, 81.e3, 9., 1100., 900., 440., 550., 330., 2, 4.6e-5)
 
+    buildPlastic("PP", " 9003-07-0", 855., 1.5e-6)
+
     # Water
-    gamma_ = {0.: 9.81 * ureg['kN/m**3'],
-              5.: 9.81 * ureg['kN/m**3'],
-              10.: 9.81 * ureg['kN/m**3'],
-              15.: 9.81 * ureg['kN/m**3'],
-              20.: 9.79 * ureg['kN/m**3'],
-              25.: 9.78 * ureg['kN/m**3'],
-              30.: 9.77 * ureg['kN/m**3'],
-              35.: 9.75 * ureg['kN/m**3'],
-              40.: 9.73 * ureg['kN/m**3'],
-              45.: 9.71 * ureg['kN/m**3'],
-              50.: 9.69 * ureg['kN/m**3'],
-              55.: 9.67 * ureg['kN/m**3'],
-              60.: 9.65 * ureg['kN/m**3'],
-              65.: 9.62 * ureg['kN/m**3'],
-              70.: 9.59 * ureg['kN/m**3'],
-              75.: 9.56 * ureg['kN/m**3'],
-              80.: 9.53 * ureg['kN/m**3'],
-              85.: 9.50 * ureg['kN/m**3'],
-              90.: 9.47 * ureg['kN/m**3'],
-              95.: 9.44 * ureg['kN/m**3'],
-              100.: 9.40 * ureg['kN/m**3']}
+    mu = {0.: 1.75e-3 * ureg['Pa*s'],
+          5.: 1.52e-3 * ureg['Pa*s'],
+          10.: 1.3e-3 * ureg['Pa*s'],
+          15.: 1.15e-3 * ureg['Pa*s'],
+          20.: 1.02e-3 * ureg['Pa*s'],
+          25.: 8.91e-4 * ureg['Pa*s'],
+          30.: 8.e-4 * ureg['Pa*s'],
+          35.: 7.18e-4 * ureg['Pa*s'],
+          40.: 6.51e-4 * ureg['Pa*s'],
+          45.: 5.94e-4 * ureg['Pa*s'],
+          50.: 5.41e-4 * ureg['Pa*s'],
+          55.: 4.98e-4 * ureg['Pa*s'],
+          60.: 4.6e-4 * ureg['Pa*s'],
+          65.: 4.31e-4 * ureg['Pa*s'],
+          70.: 4.02e-4 * ureg['Pa*s'],
+          75.: 3.73e-4 * ureg['Pa*s'],
+          80.: 3.5e-4 * ureg['Pa*s'],
+          85.: 3.3e-4 * ureg['Pa*s'],
+          90.: 3.11e-4 * ureg['Pa*s'],
+          95.: 2.92e-4 * ureg['Pa*s'],
+          100.: 2.82e-4 * ureg['Pa*s']}
 
-    mu_ = {0.: 1.75e-3 * ureg['Pa*s'],
-           5.: 1.52e-3 * ureg['Pa*s'],
-           10.: 1.3e-3 * ureg['Pa*s'],
-           15.: 1.15e-3 * ureg['Pa*s'],
-           20.: 1.02e-3 * ureg['Pa*s'],
-           25.: 8.91e-4 * ureg['Pa*s'],
-           30.: 8.e-4 * ureg['Pa*s'],
-           35.: 7.18e-4 * ureg['Pa*s'],
-           40.: 6.51e-4 * ureg['Pa*s'],
-           45.: 5.94e-4 * ureg['Pa*s'],
-           50.: 5.41e-4 * ureg['Pa*s'],
-           55.: 4.98e-4 * ureg['Pa*s'],
-           60.: 4.6e-4 * ureg['Pa*s'],
-           65.: 4.31e-4 * ureg['Pa*s'],
-           70.: 4.02e-4 * ureg['Pa*s'],
-           75.: 3.73e-4 * ureg['Pa*s'],
-           80.: 3.5e-4 * ureg['Pa*s'],
-           85.: 3.3e-4 * ureg['Pa*s'],
-           90.: 3.11e-4 * ureg['Pa*s'],
-           95.: 2.92e-4 * ureg['Pa*s'],
-           100.: 2.82e-4 * ureg['Pa*s']}
+    density = {0.: 1000. * ureg['kg/m**3'],
+               5.: 1000. * ureg['kg/m**3'],
+               10.: 1000. * ureg['kg/m**3'],
+               15.: 1000. * ureg['kg/m**3'],
+               20.: 998. * ureg['kg/m**3'],
+               25.: 997. * ureg['kg/m**3'],
+               30.: 996. * ureg['kg/m**3'],
+               35.: 994. * ureg['kg/m**3'],
+               40.: 992. * ureg['kg/m**3'],
+               45.: 990. * ureg['kg/m**3'],
+               50.: 988. * ureg['kg/m**3'],
+               55.: 986. * ureg['kg/m**3'],
+               60.: 984. * ureg['kg/m**3'],
+               65.: 981. * ureg['kg/m**3'],
+               70.: 978. * ureg['kg/m**3'],
+               75.: 975. * ureg['kg/m**3'],
+               80.: 971. * ureg['kg/m**3'],
+               85.: 968. * ureg['kg/m**3'],
+               90.: 965. * ureg['kg/m**3'],
+               95.: 962. * ureg['kg/m**3'],
+               100.: 958. * ureg['kg/m**3']}
 
-    nu_ = {0.: 1.75e-6 * ureg['m**2/s'],
-           5.: 1.52e-5 * ureg['m**2/s'],
-           10.: 1.3e-6 * ureg['m**2/s'],
-           15.: 1.15e-6 * ureg['m**2/s'],
-           20.: 1.02e-6 * ureg['m**2/s'],
-           25.: 8.94e-7 * ureg['m**2/s'],
-           30.: 8.03e-7 * ureg['m**2/s'],
-           35.: 7.22e-7 * ureg['m**2/s'],
-           40.: 6.56e-7 * ureg['m**2/s'],
-           45.: 6.e-7 * ureg['m**2/s'],
-           50.: 5.48e-7 * ureg['m**2/s'],
-           55.: 5.05e-7 * ureg['m**2/s'],
-           60.: 4.67e-7 * ureg['m**2/s'],
-           65.: 4.39e-7 * ureg['m**2/s'],
-           70.: 4.11e-7 * ureg['m**2/s'],
-           75.: 3.83e-7 * ureg['m**2/s'],
-           80.: 3.6e-7 * ureg['m**2/s'],
-           85.: 3.41e-7 * ureg['m**2/s'],
-           90.: 3.22e-7 * ureg['m**2/s'],
-           95.: 3.04e-7 * ureg['m**2/s'],
-           100.: 2.94e-7 * ureg['m**2/s']}
+    buildFluid("Water", "0.0001", density, 15., mu)
 
-    density_ = {0.: 1000. * ureg['kg/m**3'],
-                5.: 1000. * ureg['kg/m**3'],
-                10.: 1000. * ureg['kg/m**3'],
-                15.: 1000. * ureg['kg/m**3'],
-                20.: 998. * ureg['kg/m**3'],
-                25.: 997. * ureg['kg/m**3'],
-                30.: 996. * ureg['kg/m**3'],
-                35.: 994. * ureg['kg/m**3'],
-                40.: 992. * ureg['kg/m**3'],
-                45.: 990. * ureg['kg/m**3'],
-                50.: 988. * ureg['kg/m**3'],
-                55.: 986. * ureg['kg/m**3'],
-                60.: 984. * ureg['kg/m**3'],
-                65.: 981. * ureg['kg/m**3'],
-                70.: 978. * ureg['kg/m**3'],
-                75.: 975. * ureg['kg/m**3'],
-                80.: 971. * ureg['kg/m**3'],
-                85.: 968. * ureg['kg/m**3'],
-                90.: 965. * ureg['kg/m**3'],
-                95.: 962. * ureg['kg/m**3'],
-                100.: 958. * ureg['kg/m**3']}
+    mu = {25.: 6.03e-4 * ureg['Pa*s'],
+          50.: 4.2e-4 * ureg['Pa*s']}
+    density = {25.: 876. * ureg['kg/m**3'],
+               50.: 860. * ureg['kg/m**3']}
+    buildFluid("Benzene", "0.0002", density, 15., mu)
 
-    buildFluid("Water", "0.0001", density_, 293.15, gamma_, mu_, nu_)
-
-    gamma_ = {25.: 8.59 * ureg['kN/m**3'],
-              50.: 8.43 * ureg['kN/m**3']}
-    mu_ = {25.: 6.03e-4 * ureg['Pa*s'],
-           50.: 4.2e-4 * ureg['Pa*s']}
-    nu_ = {25.: 6.88e-7 * ureg['m**2/s'],
-           50.: 6.88e-7 * ureg['m**2/s']}  # TODO get correct value
-    density_ = {25.: 876. * ureg['kg/m**3'],
-                50.: 860. * ureg['kg/m**3']}
-    buildFluid("Benzene", "0.0002", density_, 293.15, gamma_, mu_, nu_)
-
-    density_ = {15.: 1700 * ureg['kg/m**3']}
-    mu_ = {15.: 1.42 * ureg['Pa * s']}
-    nu_ = {15.: (mu_[15.] / density_[15.])}
-    gamma_ = {15.: (density_[15.] * g)}
-    buildFluid("12417-GP-5to1-Z1", "GP.0000", density_, 293.15, gamma_, mu_, nu_)
+    density = {15.: 2100 * ureg['kg/m**3']}
+    mu = {15.: 1.62 * ureg['Pa * s']}
+    tau_y = 100. * ureg['Pa']
+    etha_b = 1.62 * ureg['Pa*s']
+    buildBingham("12417-GP-5to1-Z1", "GP.0000", density, 293.15, mu, tau_y, etha_b)
 
 
 if __name__ == '__main__':

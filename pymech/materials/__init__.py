@@ -1,4 +1,5 @@
 from .Material import Material
 from .Steel import Steel
-from .Fluid import Fluid
+from .Plastic import Plastic
+from .Fluid import Fluid, BinghamFluid
 from .ApplianceFactor import ApplianceFactor

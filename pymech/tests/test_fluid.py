@@ -5,53 +5,50 @@ import unittest
 import math
 
 from pymech.fluid import *
-from pymech.materials import Fluid
-from pymech.units.SI import ureg
+from pymech.materials import Fluid, BinghamFluid
+from pymech.units.SI import *
 
 
 class test_fluid_methods(unittest.TestCase):
     def test_fluid_density(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.density, 998 * ureg['kg/m**3'])
-        f.settemperaturecelsius(22.5)
-        self.assertEqual(f.density, 997.5 * ureg['kg/m**3'])
-        f.settemperaturecelsius(120.)
-        self.assertEqual(f.density, 958 * ureg['kg/m**3'])
+        f.T = 20. * ureg['degC']
+        self.assertEqual(f.rho, 998 * ureg['kg/m**3'])
+        f.T = 22.5 * ureg['degC']
+        self.assertEqual(f.rho, 997.5 * ureg['kg/m**3'])
+        f.T = 120. * ureg['degC']
+        self.assertEqual(f.rho, 958 * ureg['kg/m**3'])
 
     def test_fluid_gamma(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.gamma, 9.79 * ureg['kN/m**3'])
-        f.settemperaturecelsius(27.5)
-        self.assertEqual(round(f.gamma, 3), 9.775 * ureg['kN/m**3'])
-        f.settemperaturecelsius(120.)
-        self.assertEqual(f.gamma, 9.40 * ureg['kN/m**3'])
+        f.T = 20. * ureg['degC']
+        self.assertEqual(f.gamma.to('kN/m**3'), 9.7870367 * ureg['kN/m**3'])
+        f.T = 27.5 * ureg['degC']
+        self.assertEqual(round(f.gamma.to('kN/m**3'), 3), 9.772 * ureg['kN/m**3'])
+        f.T = 120. * ureg['degC']
+        self.assertEqual(f.gamma.to('kN/m**3'), 9.394770699999999 * ureg['kN/m**3'])
 
     def test_fluid_mu(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
+        f.T = 20. * ureg['degC']
         self.assertEqual(f.mu, 1.02e-3 * ureg['Pa*s'])
-        f.settemperaturecelsius(27.5)
+        f.T = 27.5 * ureg['degC']
         self.assertEqual(round(f.mu, 7), 8.455e-4 * ureg['Pa*s'])
-        f.settemperaturecelsius(120.)
+        f.T = 120. * ureg['degC']
         self.assertEqual(f.mu, 2.82e-4 * ureg['Pa*s'])
 
     def test_fluid_nu(self):
         f = Fluid()
         f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.nu, 1.02e-6 * ureg['m**2/s'])
-        f.settemperaturecelsius(27.5)
+        f.T = 20. * ureg['degC']
+        self.assertEqual(round(f.nu, 8), 1.02e-6 * ureg['m**2/s'])
+        f.T = 27.5 * ureg['degC']
         self.assertEqual(round(f.nu, 10), 8.485e-7 * ureg['m**2/s'])
-        f.settemperaturecelsius(120.)
-        self.assertEqual(f.nu, 2.94e-7 * ureg['m**2/s'])
-
-    def test_load_water(self):
-        f = Fluid()
-        f.load('../resources/materials/Water.mat')
-        self.assertEqual(f.density, 998 * ureg['kg/m**3'])
-        self.assertEqual(f.mu, 1.02e-3 * ureg['Pa*s'])
-        self.assertEqual(f.nu, 1.02e-6 * ureg['m**2/s'])
+        f.T = 120. * ureg['degC']
+        self.assertEqual(round(f.nu, 9), 2.94e-7 * ureg['m**2/s'])
 
 
 class test_pipe_methods(unittest.TestCase):
@@ -62,11 +59,11 @@ class test_pipe_methods(unittest.TestCase):
         points[1].Height = 21. * ureg['m']
         p = Pipe()
         p.load("../resources/piping/2.inch-Sc40.pip", L=240 * ureg['m'], fluid=f, From=points[0], To=points[1])
-        p.set_q(110. * ureg['l/min'])
-        p.fluid.settemperaturecelsius(50)
+        p.Q = 110. * ureg['l/min']
+        p.fluid.T = 50. * ureg['degC']
         hl = np.zeros(2000) * ureg['m']
         for i in range(2000):
-            p.set_q(i * ureg['l/min'])
+            p.Q = i * ureg['l/min']
             hl[i] = p.headloss()
 
         data = np.load('../resources/tests/test_headloss.npz')['arr_0']
@@ -74,6 +71,16 @@ class test_pipe_methods(unittest.TestCase):
 
 
 class test_core_methods(unittest.TestCase):
+    def test_Reynolds_Bingham(self):
+        pipe = Pipe()
+        pipe.load("../resources/piping/20.PVC-U.pip")
+        pipe.Q = 300. * ureg['l/hr']
+        fluid = BinghamFluid()
+        fluid.load("../resources/materials/12417-GP-5to1-Z1.mat")
+        pipe.fluid = fluid
+        Re_b = pipe.Re
+        print(Re_b)
+
     def test_Reynolds(self):
         Re = Reynolds(v=3.6 * ureg['m/s'], D=150 * ureg['mm'], mu=9.6e-1 * ureg['Pa*s'], rho=1258 * ureg['kg/m**3'],
                       pretty=True)
@@ -85,8 +92,8 @@ class test_core_methods(unittest.TestCase):
 
         fluid = Fluid()
         fluid.load('../resources/materials/Water.mat')
-        fluid.settemperaturecelsius(40)
-        Re = Reynolds(v=3.6 * ureg['m/s'], D=150 * ureg['mm'], rho=fluid.density, mu=fluid.mu)
+        fluid.T = 40 * ureg['degC']
+        Re = Reynolds(v=3.6 * ureg['m/s'], D=150 * ureg['mm'], rho=fluid.rho, mu=fluid.mu)
         self.assertAlmostEqual(Re, 822857. * ureg['dimensionless'], places=0)
 
     def test_flowrate(self):
@@ -124,12 +131,12 @@ class test_core_methods(unittest.TestCase):
         self.assertEqual(round(hp, 3), 0.033 * ureg['m'])
 
     def test_friction(self):
-        Re = 1040.3
+        Re = 1040.3 * ureg['dimensionless']
         D = 60.3 * ureg['mm']
         eps = 2.4e-4 * ureg['m']
         f = friction(Re=Re, D=D, eps=eps)
         self.assertEqual(round(f, 4), 0.0615 * ureg['dimensionless'])
-        Re = 8999.2
+        Re = 8999.2 * ureg['dimensionless']
         f = friction(Re=Re, D=D, eps=eps)
         self.assertEqual(round(f, 4), 0.0377 * ureg['dimensionless'])
 

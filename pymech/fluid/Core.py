@@ -1,5 +1,6 @@
 from enum import Enum
 import sys
+import numpy as np
 
 from pymech.units.SI import ureg, g
 from pymech.materials.Fluid import Fluid
@@ -37,12 +38,12 @@ def Reynolds(v, D, rho=None, mu=None, nu=None, fluid=None, pretty=False):
         else:
             return Re
     elif fluid is not None:
-        Re = (v * D.to('m') * fluid.density) / fluid.mu
+        Re = (v * D.to('m') * fluid.rho) / fluid.mu
         Re = Re.to_base_units()
         if pretty:
             pr = Latex.display(Latex.toStr(
                 r"Re = \frac{v{f} \times D_i \times \rho_{f}}{\mu_{f}} \rightarrow \frac{" + Latex.toStr(
-                    v) + r" \times " + Latex.toStr(D) + r" \times " + Latex.toStr(fluid.density) + r"}{" + Latex.toStr(
+                    v) + r" \times " + Latex.toStr(D) + r" \times " + Latex.toStr(fluid.rho) + r"}{" + Latex.toStr(
                     fluid.mu) + r"} = " + Latex.toStr(Re)))
             return [Re, pr]
         else:
@@ -66,7 +67,7 @@ def flowrate(v, A, pretty=False):
 
 def Darcy(f, L, D, v, fluid=None, rho=None, dP=False, pretty=False):
     if fluid is not None:
-        rho = fluid.density
+        rho = fluid.rho
     darcy = f * (L / D)
     if dP and rho is not None:
         darcy *= (v ** 2 * rho) / 2
@@ -89,7 +90,7 @@ def flowregime(Re):
 def HagenPoiseuille(L, D, v, mu=None, fluid=None, rho=None, dP=False, pretty=False):  # TODO check
     if fluid is not None:
         mu = fluid.mu
-        rho = fluid.density
+        rho = fluid.rho
     hp = 32. * mu * L * v
     if dP:
         hp /= D ** 2
@@ -100,32 +101,62 @@ def HagenPoiseuille(L, D, v, mu=None, fluid=None, rho=None, dP=False, pretty=Fal
     return hp
 
 
-def friction(Re, D=None, eps=None, pretty=False):
-    if flowregime(Re) is Regime.LAMINAR:
-        if Re == 0.:
-            Re = 0.001 #sys.float_info.min
-        return 64. / Re
-    elif flowregime(Re):
-        return 0.25 / (math.log((1 / (3.7 * (D / eps))) + (5.74 / Re ** 0.9), 10)) ** 2
+def friction(Re, D=None, eps=None, pipe=None, pretty=False):
+    if type(Re.magnitude).__module__ == 'numpy':
+        fr = np.zeros(Re.magnitude.shape)
+        count = 0
+        for R in Re:
+            if flowregime(R) is Regime.LAMINAR:
+                if R == 0.:
+                    R = 0.001  # sys.float_info.min
+                fr[count] = 64. / R
+            elif flowregime(R):
+                if pipe is not None:
+                    D = pipe.D_in
+                    eps = pipe.material.epsilon
+                fr[count] = 0.25 / (math.log((1 / (3.7 * (D / eps))) + (5.74 / R ** 0.9), 10)) ** 2
+            count += 1
+        return fr
+    else:
+        if flowregime(Re) is Regime.LAMINAR:
+            if Re == 0.:
+                Re = 0.001  # sys.float_info.min
+            return 64. / Re
+        elif flowregime(Re):
+            if pipe is not None:
+                D = pipe.D_in
+                eps = pipe.material.epsilon
+            return 0.25 / (math.log((1 / (3.7 * (D / eps))) + (5.74 / Re ** 0.9), 10)) ** 2
 
 
 def fluidspeed(Q, A):
     return Q / A
 
+
 def hydrostatic_headloss(z_from, z_to, fluid=None, rho=None, dP=False, pretty=False):
     if fluid is not None:
-        rho = fluid.density
+        rho = fluid.rho
     if dP:
         return rho * g * (z_to - z_from)
     else:
         return z_to - z_from
 
+
 def hl_to_dp(hl, rho=None, fluid=None, pretty=False):
     if fluid is not None:
-        rho = fluid.density
+        rho = fluid.rho
     return rho * g * hl
+
 
 def dp_to_hl(dp, rho=None, fluid=None, pretty=False):
     if fluid is not None:
-        rho = fluid.density
-    return  dp / (rho * g)
+        rho = fluid.rho
+    return dp / (rho * g)
+
+
+def I_m(friction, pipe=None, D=None, v=None):
+    """ Hydraulic gradient for pseudo-homogeneous mixture flow [-], Source: Matousek"""
+    if pipe is not None:
+        D = pipe.D_in
+        v = pipe.v
+    return (friction / D) * (v ** 2 / g)

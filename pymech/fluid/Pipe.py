@@ -112,7 +112,7 @@ class Pipe(Component):
         if dP:
             self.P1 = self.P0 - hl
         else:
-            self.P1 = self.P0 - hl * g
+            self.P1 = self.P0 - (hl * self.fluid.rho * g)
         return hl
 
     @property

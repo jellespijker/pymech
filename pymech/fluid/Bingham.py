@@ -3,6 +3,18 @@ import numpy as np
 from pymech.fluid.Pipe import *
 
 
+def Hedstrom_B(fluid=None, pipe=None, tau_y=None, D=None, rho=None, eta_b=None):
+    if fluid is not None:
+        tau_y = fluid.tau_y
+        rho = fluid.rho
+        eta_b = fluid.eta_b
+    if pipe is not None:
+        D = pipe.D_in
+
+    he = (tau_y * D ** 2 * rho) / eta_b ** 2
+    return he
+
+
 def Reynolds_B(fluid=None, pipe=None, rho=None, v=None, D=None, eta_b=None, tau_y=None):
     """ Reynolds number of flow of Bingham plastic mixture [-], Source: Matousek """
     if fluid is not None:

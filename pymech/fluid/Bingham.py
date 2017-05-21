@@ -42,7 +42,8 @@ def friction_B(Re, D=None, eps=None, pipe=None, pretty=False):
                 if pipe is not None:
                     D = pipe.D_in
                     eps = pipe.material.epsilon
-                fr[count] = 0.25 / (math.log((1 / (3.7 * (D / eps))) + (5.74 / R ** 0.9), 10)) ** 2
+                fr[count] = 0.25 / (math.log((1 / (3.7 * (D / eps))) + (5.74 / R ** 0.9),
+                                             10)) ** 2  # TODO check with @edhoog if this still applies in turbulent flows
             count += 1
         return fr
     else:

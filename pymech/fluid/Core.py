@@ -159,4 +159,21 @@ def I_m(friction, pipe=None, D=None, v=None):
     if pipe is not None:
         D = pipe.D_in
         v = pipe.v
-    return (friction / D) * (v ** 2 / (2 * g))
+    return ((friction / D) * (v ** 2 / (2 * g))).to_base_units()
+
+
+def dP_im(I_m, fluid_ref=None, rho_ref=None, pipe=None, L=None):
+    if fluid_ref is not None:
+        rho_ref = fluid_ref.rho
+    if pipe is not None:
+        L = pipe.L
+    dP = I_m * rho_ref * g * L
+    return dP.to('Pa')
+
+
+def tau0(dp, pipe=None, D=None, L=None):
+    if pipe is not None:
+        D = pipe.D_in
+        L = pipe.L
+    tau_0 = (D * dp) / (4 * L)
+    return tau_0.to('Pa')

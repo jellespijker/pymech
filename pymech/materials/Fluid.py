@@ -120,7 +120,7 @@ class Fluid(Material):
 
 class BinghamFluid(Fluid):
     _tau_y = 0. * ureg['Pa']
-    _etha_b = 0. * ureg['Pa*s']
+    _eta_b = 0. * ureg['Pa*s']
 
     def __index__(self, name: str = 'Water', id: str = '0.0001', T=15.,
                   category: Category = Category.FLUID):
@@ -135,12 +135,12 @@ class BinghamFluid(Fluid):
         self._tau_y = value.to('Pa')
 
     @property
-    def etha_b(self):
-        return self._etha_b
+    def eta_b(self):
+        return self._eta_b
 
-    @etha_b.setter
-    def etha_b(self, value):
-        self._etha_b = value.to('Pa*s')
+    @eta_b.setter
+    def eta_b(self, value):
+        self._eta_b = value.to('Pa*s')
 
     def load(self, filename):
         bfluid = serialize_load(filename, fmt='yaml')
@@ -151,11 +151,11 @@ class BinghamFluid(Fluid):
         self._density_func = bfluid._density_func
         self.category = bfluid.category
         self._mu = bfluid._mu
-        self._etha_b = bfluid._etha_b
+        self._eta_b = bfluid._eta_b
         self._tau_y = bfluid._tau_y
 
     def BinghamFluid_to_builtin(u):
-        return (Fluid.Fluid_to_builtin(u), u._etha_b, u._tau_y)
+        return (Fluid.Fluid_to_builtin(u), u._eta_b, u._tau_y)
 
     def BinghamFluid_from_builtin(c):
         bfluid = BinghamFluid()
@@ -166,6 +166,6 @@ class BinghamFluid(Fluid):
         bfluid._density_func = c[0][0][4]
         bfluid.category = c[0][0][5]
         bfluid._mu = c[0][1]
-        bfluid._etha_b = c[1]
+        bfluid._eta_b = c[1]
         bfluid._tau_y = c[2]
         return bfluid

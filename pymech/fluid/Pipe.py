@@ -5,7 +5,7 @@ from pymech.units.SI import *
 from pymech.fluid.Component import Component
 from pymech.fluid.Point import Point
 from pymech.fluid.Core import flowrate, Regime, Reynolds, Darcy, flowregime, HagenPoiseuille, friction, fluidspeed, \
-    hydrostatic_headloss, I_m
+    hydrostatic_headloss, I_m, hl_to_dp
 from pymech.fluid.Bingham import Reynolds_B
 
 
@@ -112,7 +112,7 @@ class Pipe(Component):
         if dP:
             self.P1 = self.P0 - hl
         else:
-            self.P1 = self.P0 - (hl * self.fluid.rho * g)
+            self.P1 = self.P0 - hl_to_dp(hl, self.fluid, pretty=pretty)
         return hl
 
     @property

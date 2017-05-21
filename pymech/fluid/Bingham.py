@@ -3,17 +3,17 @@ import numpy as np
 from pymech.fluid.Pipe import *
 
 
-def Reynolds_B(fluid=None, pipe=None, rho=None, v=None, D=None, etha_b=None, tau_y=None):
+def Reynolds_B(fluid=None, pipe=None, rho=None, v=None, D=None, eta_b=None, tau_y=None):
     """ Reynolds number of flow of Bingham plastic mixture [-], Source: Matousek """
     if fluid is not None:
         rho = fluid.rho
-        etha_b = fluid.etha_b
+        eta_b = fluid.eta_b
         tau_y = fluid.tau_y
     if pipe is not None:
         v = pipe.v
         D = pipe.D_in
 
-    re_b = (rho * v * D) / (etha_b * (1. + ((tau_y * D) / (6. * etha_b * v))))
+    re_b = (rho * v * D) / (eta_b * (1. + ((tau_y * D) / (6. * eta_b * v))))
     return re_b.to_base_units()
 
 

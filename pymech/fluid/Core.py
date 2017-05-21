@@ -108,7 +108,7 @@ def friction(Re, D=None, eps=None, pipe=None, pretty=False):
         for R in Re:
             if flowregime(R) is Regime.LAMINAR:
                 if R == 0.:
-                    R = 0.001  # sys.float_info.min
+                    R = 1.e-310  # sys.float_info.min
                 fr[count] = 64. / R
             elif flowregime(R):
                 if pipe is not None:
@@ -159,4 +159,4 @@ def I_m(friction, pipe=None, D=None, v=None):
     if pipe is not None:
         D = pipe.D_in
         v = pipe.v
-    return (friction / D) * (v ** 2 / g)
+    return (friction / D) * (v ** 2 / (2 * g))

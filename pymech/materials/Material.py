@@ -5,6 +5,11 @@ from pymech.print import Latex
 from pymech.units.SI import *
 
 
+class LoadType(Enum):
+    Torsion = 1
+    Bend = 2
+    Shear = 3
+
 class Category(Enum):
     STEEL = 1
     PLASTIC = 2

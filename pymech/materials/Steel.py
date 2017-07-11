@@ -1,5 +1,6 @@
-from .Material import Material, Category
+from .Material import Material, Category, LoadType
 from pymech.units.SI import *
+import pymech.print.Latex as Latex
 
 
 class Steel(Material):
@@ -33,6 +34,22 @@ class Steel(Material):
             [self.E, self.G, self.A, self.R_mN, self.R_eN, self.sigma_tdWN, self.sigma_bWN, self.tau_tWN,
              self.rel_cost])
         return repr(mat)
+
+    def sigma_v(self, typeofload=LoadType.Bend, pretty=False):
+        if typeofload is LoadType.Bend:
+            sigma = self.sigma_bWN
+            sigma_str = r"\sigma_{bWN}"
+        else:
+            sigma = self.sigma_tdWN
+            sigma_str = r"\sigma_{tdWN}"
+        sigma_v = (sigma ** 2 + 3 * self.tau_tWN ** 2) ** (1 / 2)
+        if pretty:
+            pr = Latex.display(
+                Latex.toStr(r"\sigma_{v} = \sqrt{" + sigma_str) + r"^2 + 3 \times \tau_{tWN}^2} = \sqrt{" + Latex.toStr(
+                    sigma) + r"^2 + 3 \times " + Latex.toStr(self.tau_tWN) + r"^2} = " + Latex.toStr(sigma_v))
+            return [sigma_v, pr]
+        else:
+            return sigma_v
 
     def load(self, filename):
         steel = serialize_load(filename, fmt='yaml')

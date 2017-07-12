@@ -1,67 +1,52 @@
 import numpy as np
 from pymech.materials.Material import Material
 from pymech.materials.Plastic import Plastic
-from pymech.materials.Steel import Steel
+from pymech.materials.Metal import Steel
 from pymech.materials.Fluid import Fluid, BinghamFluid
 from pymech.materials.Material import Category
 from pymech.units.SI import ureg, Q_, g
 
 
 def buildSteel(name, id, rho, T, E, G, A, R_mN, R_eN, sigma_tdWN, sigma_bWN, tau_tWN, rel_cost, eps):
-    S = Steel(name, id, category=Category.STEEL)
-    S.temperature = T * ureg['K']
-    S.rho = rho * ureg['kg/m**3']
-    S.E = E * ureg['MPa']
-    S.G = G * ureg['MPa']
-    S.A = A / 100.
-    S.R_mN = R_mN * ureg['MPa']
-    S.R_eN = R_eN * ureg['MPa']
-    S.sigma_tdWN = sigma_tdWN * ureg['MPa']
-    S.sigma_bWN = sigma_bWN * ureg['MPa']
-    S.tau_tWN = tau_tWN * ureg['MPa']
-    S.rel_cost = rel_cost
-    S.epsilon = eps * ureg['m']
+    S = Steel(name=name, id=id, rho=rho * ureg['kg/m**3'], T=T * ureg['degC'], E=E * ureg['N/mm**2'],
+              G=G * ureg['N/mm**2'], A=A, R_mN=R_mN * ureg['MPa'], R_eN=R_eN * ureg['MPa'],
+              sigma_tdWN=sigma_tdWN * ureg['MPa'],
+              sigma_bWN=sigma_bWN * ureg['MPa'], tau_tWN=tau_tWN * ureg['MPa'], rel_cost=rel_cost,
+              epsilon=eps * ureg['m'])
     S.save("../pymech/resources/materials/" + name + ".mat")
 
 
 def buildPlastic(name, id, rho, eps):
-    P = Plastic(name=name, id=id, density=rho * ureg['kg/m**3'], T=15. * ureg['degC'], category=Category.PLASTIC)
+    P = Plastic(name=name, id=id, rho=rho * ureg['kg/m**3'], T=15. * ureg['degC'])
     P.epsilon = eps * ureg['m']
     P.save("../pymech/resources/materials/" + name + ".mat")
 
 
 def buildFluid(name, id, rho, T, mu):
-    F = Fluid(name, id, category=Category.FLUID, T=T * ureg['degC'])
-    F._rho = rho
-    F._mu = mu
-    F.v = np.array([0., 0., 0.]) * ureg['m/s']
+    F = Fluid(name, id, T=T * ureg['degC'], rho=rho, mu=mu)
+    F.nu
     F.save("../pymech/resources/materials/" + name + ".mat")
 
 
-def buildBingham(name, id, rho, T, mu, tau_y, etha_b):
-    B = BinghamFluid(name=name, id=id, T=T * ureg['degC'])
-    B.rho = rho
-    B.mu = mu
-    B.tau_y = tau_y
-    B.etha_b = etha_b
-    B.v = np.array([0., 0., 0.]) * ureg['m/s']
+def buildBingham(name, id, rho, T, mu, tau_y, eta_b):
+    B = BinghamFluid(name=name, id=id, T=T * ureg['degC'], rho=rho, mu=mu, tau_y=tau_y, eta_b=eta_b)
     B.save("../pymech/resources/materials/" + name + ".mat")
 
 
 def main():
-    buildSteel("S235JR", "1.0037", 7800., 293.15, 210.e3, 81.e3, 26., 360., 235., 140., 180., 105., 1.0, 4.6e-5)
-    buildSteel("S275JR", "1.0044", 7800., 293.15, 210.e3, 81.e3, 22., 430., 275., 170., 215., 125., 1.05, 4.6e-5)
-    buildSteel("S355JR", "1.0045", 7800., 293.15, 210.e3, 81.e3, 22., 510., 355., 205., 255., 150., 2.0, 4.6e-5)
-    buildSteel("E295", "1.0050", 7800., 293.15, 210.e3, 81.e3, 20., 490., 295., 195., 245., 145., 1.1, 4.6e-5)
-    buildSteel("E335", "1.0060", 7800., 293.15, 210.e3, 81.e3, 16., 590., 335., 235., 290., 180., 1.7, 4.6e-5)
-    buildSteel("E360", "1.0070", 7800., 293.15, 210.e3, 81.e3, 11., 690., 360., 275., 345., 205., 2.0, 4.6e-5)
-    buildSteel("C22E", "1.1151", 7800., 293.15, 210.e3, 81.e3, 20., 500., 340., 200., 250., 150., 1.6, 4.6e-5)
-    buildSteel("C40E", "1.1186", 7800., 293.15, 210.e3, 81.e3, 16., 650., 460., 260., 325., 200., 1.7, 4.6e-5)
-    buildSteel("38Cr2", "1.7003", 7800., 293.15, 210.e3, 81.e3, 14., 800., 550., 320., 400., 240., 1.7, 4.6e-5)
-    buildSteel("41Cr4", "1.7035", 7800., 293.15, 210.e3, 81.e3, 11., 1000., 800., 400., 500., 300., 1.7, 4.6e-5)
-    buildSteel("50CrMo4", "1.7228", 7800., 293.15, 210.e3, 81.e3, 9., 1100., 900., 440., 550., 330., 2, 4.6e-5)
-    buildSteel("Cf53", "1.1213", 7800., 293.15, 210.e3, 81.e3, 12., 740., 510., 295., 370., 220., 2., 4.6e-5)
-    buildSteel("C60E", "1.1221", 7800., 293.15, 210.e3, 81.e3, 6., 750., 520., 300., 375., 225., 1.8, 4.6e-5)
+    buildSteel("S235JR", "1.0037", 7800., 15., 210.e3, 81.e3, 26., 360., 235., 140., 180., 105., 1.0, 4.6e-5)
+    buildSteel("S275JR", "1.0044", 7800., 15., 210.e3, 81.e3, 22., 430., 275., 170., 215., 125., 1.05, 4.6e-5)
+    buildSteel("S355JR", "1.0045", 7800., 15., 210.e3, 81.e3, 22., 510., 355., 205., 255., 150., 2.0, 4.6e-5)
+    buildSteel("E295", "1.0050", 7800., 15., 210.e3, 81.e3, 20., 490., 295., 195., 245., 145., 1.1, 4.6e-5)
+    buildSteel("E335", "1.0060", 7800., 15., 210.e3, 81.e3, 16., 590., 335., 235., 290., 180., 1.7, 4.6e-5)
+    buildSteel("E360", "1.0070", 7800., 15., 210.e3, 81.e3, 11., 690., 360., 275., 345., 205., 2.0, 4.6e-5)
+    buildSteel("C22E", "1.1151", 7800., 15., 210.e3, 81.e3, 20., 500., 340., 200., 250., 150., 1.6, 4.6e-5)
+    buildSteel("C40E", "1.1186", 7800., 15., 210.e3, 81.e3, 16., 650., 460., 260., 325., 200., 1.7, 4.6e-5)
+    buildSteel("38Cr2", "1.7003", 7800., 15., 210.e3, 81.e3, 14., 800., 550., 320., 400., 240., 1.7, 4.6e-5)
+    buildSteel("41Cr4", "1.7035", 7800., 15., 210.e3, 81.e3, 11., 1000., 800., 400., 500., 300., 1.7, 4.6e-5)
+    buildSteel("50CrMo4", "1.7228", 7800., 15., 210.e3, 81.e3, 9., 1100., 900., 440., 550., 330., 2, 4.6e-5)
+    buildSteel("Cf53", "1.1213", 7800., 15., 210.e3, 81.e3, 12., 740., 510., 295., 370., 220., 2., 4.6e-5)
+    buildSteel("C60E", "1.1221", 7800., 15., 210.e3, 81.e3, 6., 750., 520., 300., 375., 225., 1.8, 4.6e-5)
 
     buildPlastic("PP", " 9003-07-0", 855., 1.5e-6)
 
@@ -112,17 +97,18 @@ def main():
 
     buildFluid("Water", "0.0001", density, 15., mu)
 
+    #Benzene
     mu = {25.: 6.03e-4 * ureg['Pa*s'],
           50.: 4.2e-4 * ureg['Pa*s']}
     density = {25.: 876. * ureg['kg/m**3'],
                50.: 860. * ureg['kg/m**3']}
     buildFluid("Benzene", "0.0002", density, 15., mu)
 
-    density = {15.: 2100 * ureg['kg/m**3']}
-    mu = {15.: 1.62 * ureg['Pa * s']}
+    density = 2100 * ureg['kg/m**3']
+    mu = 1.62 * ureg['Pa * s']
     tau_y = 100. * ureg['Pa']
     etha_b = 1.62 * ureg['Pa*s']
-    buildBingham("12417-GP-5to1-Z1", "GP.0000", density, 293.15, mu, tau_y, etha_b)
+    buildBingham("12417-GP-5to1-Z1", "GP.0000", density, 15., mu, tau_y, etha_b)
 
 
 if __name__ == '__main__':

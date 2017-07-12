@@ -157,6 +157,18 @@ __dumped_obj__: !!python/tuple
       - !!python/tuple [kelvin, 1.0]
   - null
   - !!python/object/apply:pymech.materials.Material.Category [3]
+- __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+  __dumped_obj__: !!python/tuple
+  - 0.0
+  - !!python/tuple
+    - !!python/tuple [pascal, 1.0]
+- __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+  __dumped_obj__: !!python/tuple
+  - 0.0
+  - !!python/tuple
+    - !!python/tuple [joule, 1.0]
+    - !!python/tuple [kilogram, -1.0]
+    - !!python/tuple [kelvin, -1.0]
 - 0.0:
     __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
     __dumped_obj__: !!python/tuple
@@ -304,3 +316,4 @@ __dumped_obj__: !!python/tuple
     - !!python/tuple
       - !!python/tuple [pascal, 1.0]
       - !!python/tuple [second, 1.0]
+- null

@@ -1,5 +1,5 @@
 from pymech.fmt.Geometry import Geometry
-from pymech.materials.Steel import Steel
+from pymech.materials.Metal import Steel
 from pymech.materials.ApplianceFactor import ApplianceFactor
 
 class Properties:

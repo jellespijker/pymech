@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='pyMech',
-    version='0.1.0a',
+    version='0.2.0a',
     description='Roloff / Matek brought to Python',
     long_description=long_description,
     url='https://github.com/peer23peer/pyMech',
@@ -30,6 +30,6 @@ setup(
     ],
     keywords='mechanical engineering',
     packages=find_packages(),
-    install_requires=['numpy', 'pint', 'networkx', 'serialize', 'pyyaml'],
+    install_requires=['numpy', 'pint', 'networkx', 'serialize', 'pyyaml', 'SfePy'],
 
 )

@@ -3,13 +3,12 @@ __dumped_obj__: !!python/tuple
 - !!python/tuple
   - PP
   - ' 9003-07-0'
-  - 20.0:
-      __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
-      __dumped_obj__: !!python/tuple
-      - 7800.0
-      - !!python/tuple
-        - !!python/tuple [kilogram, 1.0]
-        - !!python/tuple [meter, -3.0]
+  - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+    __dumped_obj__: !!python/tuple
+    - 855.0
+    - !!python/tuple
+      - !!python/tuple [kilogram, 1.0]
+      - !!python/tuple [meter, -3.0]
   - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
     __dumped_obj__: !!python/tuple
     - 288.15
@@ -17,6 +16,13 @@ __dumped_obj__: !!python/tuple
       - !!python/tuple [kelvin, 1.0]
   - null
   - !!python/object/apply:pymech.materials.Material.Category [2]
+- __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
+  __dumped_obj__: !!python/tuple
+  - 0.0
+  - !!python/tuple
+    - !!python/tuple [newton, 1.0]
+    - !!python/tuple [millimeter, -2.0]
+- 0.0
 - __class_name__: <class 'pint.quantity.build_quantity_class.<locals>.Quantity'>
   __dumped_obj__: !!python/tuple
   - 1.5e-06

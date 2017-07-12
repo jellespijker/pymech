@@ -137,6 +137,9 @@ def array(obj):
     return retStr
 
 
+def brackets(obj):
+    return r"\left(" + obj + r"\right)"
+
 def frac(top, bottom):
     return r"\frac{" + toStr(top) + r"}{" + toStr(bottom) + r"}"
 

@@ -1,5 +1,5 @@
 from pymech.fluid.Pipe import Pipe
-from pymech.materials.Steel import Steel
+from pymech.materials.Metal import Steel
 from pymech.materials.Plastic import Plastic
 from pymech.units.SI import ureg, Q_
 

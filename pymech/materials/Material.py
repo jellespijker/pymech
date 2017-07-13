@@ -5,15 +5,12 @@ from IPython.display import Latex as ltx
 from pymech.units.SI import *
 
 
-<<<<<<< HEAD
-=======
 class LoadType(Enum):
     Torsion = 1
     Bend = 2
     Shear = 3
 
 
->>>>>>> 5458352... Resturcturing of Materials module
 class Category(Enum):
     STEEL = 1
     PLASTIC = 2

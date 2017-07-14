@@ -3,7 +3,7 @@ import matplotlib.pyplot as pl
 from PIL import Image
 
 import pymech.fmt as fmt
-from pymech.materials.Steel import Steel
+from pymech.materials.Metal import Steel
 from pymech.materials.ApplianceFactor import ApplianceFactor, Bumps
 from pymech.axle.Properties import Properties
 from pymech.axle.Axle import Axle

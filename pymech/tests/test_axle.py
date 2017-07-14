@@ -1,6 +1,4 @@
 import unittest
-import matplotlib.pyplot as pl
-from PIL import Image
 
 import pymech.fmt as fmt
 from pymech.materials.Metal import Steel

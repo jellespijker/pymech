@@ -50,6 +50,7 @@ class SpringMesh(Topology):
                 if not np.isnan(n.displacement.vector.m).any():
                     known.append(self.nodes.index(n))
             self._known = known
+            self._assembled_matrix['known'] = True
         return self._known
 
     @property
@@ -58,6 +59,7 @@ class SpringMesh(Topology):
             known = self.known
             self._unknown = np.arange(0, self.no_nodes)
             self._unknown = np.delete(self._unknown, known)
+            self._assembled_matrix['unknown'] = True
         return self._unknown
 
 

@@ -23,11 +23,11 @@ class Solver:
         S = np.linalg.solve(A, b)
         index = 0
         for p in x:
-            p.F = S.item(index)
+            p.force = S.item(index)
             index += 1
 
         for p in self.geometry.points:
-            self.V[p.x] = -1 * p.F
+            self.V[p.x] = -1 * p.force
             self.M[p.x] = p.M
             self.T[p.x] = p.T
 

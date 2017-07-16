@@ -23,7 +23,7 @@ class Axle:
         S = Solver(self.properties.geometry)
         x = self.properties.geometry.getx()
         for f in x:
-            f.F = 0.0
+            f.force = 0.0
         S.solve()
         self.V = S.V
         self.M = S.M

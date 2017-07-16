@@ -16,7 +16,7 @@ class Geometry:
             if any(p.x == point.x for p in self.points):
                 for i in self.points:
                     if i.x == point.x:
-                        i.F += point.F
+                        i.force += point.F
                         i.M += point.M
                         i.T += point.T
             else:
@@ -54,7 +54,7 @@ class Geometry:
                 unknown.append(p)
         A = np.zeros((2, len(unknown)))
         for i in range(len(unknown)):
-            if unknown[i].F < 0:
+            if unknown[i].force < 0:
                 A[0, i] = -1
             else:
                 A[0, i] = 1
@@ -83,9 +83,9 @@ class Geometry:
                 known.append(p)
         b = np.zeros((2, 1))
         for i in range(len(known)):
-            b[0] -= known[i].F
+            b[0] -= known[i].force
 
         for i in range(len(known)):
-            b[1] -= (known[i].x / 1000.) * known[i].F + known[i].M
+            b[1] -= (known[i].x / 1000.) * known[i].force + known[i].M
 
         return b

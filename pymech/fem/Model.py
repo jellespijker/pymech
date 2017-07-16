@@ -7,7 +7,6 @@ class SpringModel(Model):
         Model.__init__(self, topology)
         self.k = np.zeros(topology.k.shape)
         self.force = np.zeros((topology.no_nodes, 3))
-        self.displacement = np.zeros((topology.no_nodes, 3))
 
     def solve(self):
         self.k = np.delete(np.delete(self.topology.k.m, self.topology.known, 0), self.topology.known,

@@ -14,9 +14,9 @@ class SpringModel(Model):
         # transposing known displacement to known force
         for e in self.topology.elements:
             if e.nodes[0].displacement.norm != 0. and not np.isnan(e.nodes[0].displacement.norm):
-                e.nodes[1].force.vector = - e.k * e.nodes[0].displacement.vector
+                e.nodes[1].force.vector = e.k * e.nodes[0].displacement.vector
             if e.nodes[1].displacement.norm != 0. and not np.isnan(e.nodes[1].displacement.norm):
-                e.nodes[0].force.vector = - e.k * e.nodes[1].displacement.vector
+                e.nodes[0].force.vector = e.k * e.nodes[1].displacement.vector
 
         self.force = np.delete(self.topology.force.m, self.topology.known, 0) * self.topology.force.u
         self.force[np.isnan(self.force)] = 0 * ureg['N']
